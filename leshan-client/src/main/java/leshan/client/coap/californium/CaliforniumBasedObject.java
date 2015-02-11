@@ -48,12 +48,20 @@ public class CaliforniumBasedObject extends CaliforniumBasedLwM2mNode<LwM2mClien
             createMandatoryObjectInstance(def);
         }
     }
+
+    public CaliforniumBasedObject(final LwM2mClientObjectDefinition def, LwM2mClientObject object) {
+        super(def.getId(), object);
+    }
     
     private void createMandatoryObjectInstance(final LwM2mClientObjectDefinition def) {
         LwM2mClientObjectInstance instance = node.createMandatoryInstance();
         onSuccessfulCreate(instance);
     }
-
+    
+    public LwM2mClientObject getLwM2mClientObject() {
+        return (LwM2mClientObject) this.node; 
+    }
+    
     @Override
     public void handlePOST(final CoapExchange exchange) {
         node.createInstance(new CaliforniumBasedLwM2mCallbackExchange<LwM2mClientObjectInstance>(exchange,
